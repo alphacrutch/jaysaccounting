@@ -1,11 +1,38 @@
 <template>
   <div class="home">
-    <h1> Choose Your Service</h1>
-    <select id="serviceSelection" v-model="chosenService">
-      <option v-for="service in Services" :value="service.Name" :key="service.Name">{{ service.Name }}
-      </option>
-    </select>
-    <button @click="GoToServicePage" id="nextBtn">Next</button>
+    <section id="home-section">
+      <h1>Jay's Accounting Service</h1>
+
+      <h3> Streamline Your Business Setup & Compliance — All in One Place </h3>
+      <hr>
+      <label>Easily submit your information, documents, and photos for:</label>
+      <ul>
+        <li>✅ Accounting Services</li>
+        <li>✅ Business Registration</li>
+        <li>✅ OPR (Procurement Registration)</li>
+        <li>✅ Tax Filing & Compliance</li>
+        <li>✅ Post-Incorporation Services</li>
+      </ul>
+      <p><i><b> Secure. Simple. Fast.</b></i></p>
+
+      <p>
+        Let’s get your business moving — start by signing up today.
+      </p>
+
+    </section>
+    <section id="serviceSelectionHolder" v-if="showServiceSelection">
+      <h2> Choose Your Service</h2>
+      <select id="serviceSelection" v-model="chosenService">
+        <option v-for="service in Services" :value="service.Name" :key="service.Name">{{ service.Name }}
+        </option>
+      </select>
+      <button @click="GoToServicePage" id="nextBtn">Next</button>
+    </section>
+    <div class="authOptions">
+      <button @click="signIn" class="authBtn">Sign Up</button>
+      <div>or</div>
+      <button @click="logIn" class="authBtn">Log In</button>
+    </div>
   </div>
 </template>
 
@@ -15,16 +42,15 @@ import { useRouter } from 'vue-router';
 import { Services } from '@/composables/staticData';
 
 const router = useRouter();
-const chosenService = ref('')
+const chosenService = ref('');
+const showServiceSelection = ref(false);
 
 const GoToServicePage = () => {
-
   const selected = Services.value.find(s => s.Name === chosenService.value)
   if (selected) {
     router.push(selected.route)
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -32,14 +58,35 @@ const GoToServicePage = () => {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  justify-content: space-evenly;
-  height: 15em;
-  width: 90vw;
+  justify-content: space-between;
+  height: 90vh;
+  width: 95vw;
+}
+
+#home-section {
+  height: 90%;
+  width: 98%;
+  background-color: rgba(0, 255, 255, 0.336);
+  border-radius: 2em;
+}
+
+.authOptions {
+  gap: 1em;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+#serviceSelectionHolder {
+  width: 98%;
+  height: 30%;
 }
 
 select {
   width: 80%;
-  height: 12%;
+  height: 20%;
 }
 
 #nextBtn {
@@ -47,5 +94,13 @@ select {
   height: 15%;
   font-size: 1.3rem;
 
+}
+
+li {
+  text-align: left;
+}
+
+.authBtn {
+  width: 35%;
 }
 </style>
