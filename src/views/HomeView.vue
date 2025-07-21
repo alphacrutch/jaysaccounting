@@ -18,7 +18,7 @@
       <p>
         Let’s get your business moving — start by signing up today.
       </p>
-
+      <button @click="createMergedSheet"> Create Sheet</button>
     </section>
     <section id="serviceSelectionHolder" v-if="showServiceSelection">
       <h2> Choose Your Service</h2>
@@ -27,6 +27,7 @@
         </option>
       </select>
       <button @click="GoToServicePage" id="nextBtn">Next</button>
+
     </section>
     <div class="authOptions">
       <button @click="signIn" class="authBtn">Sign Up</button>
@@ -40,6 +41,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Services } from '@/composables/staticData';
+import { createMergedSheet } from '@/composables/excelFactory';
 
 const router = useRouter();
 const chosenService = ref('');
